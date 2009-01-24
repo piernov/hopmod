@@ -1,0 +1,41 @@
+#labels manual
+Server-side player commands supported by the server.
+
+= Introduction =
+
+== Table of Common Parameters ==
+
+|| *ID* || *Description* ||
+|| `<cn>` || A client number, every player connected to the server is uniquely assigned one of these numbers. Most player specific commands require a CN argument to address a player, the list of client numbers is visible from the scoreboard window to master and admin players. ||
+
+= Public Commands =
+
+|| *Command Line* || *Description* ||
+|| `#stats` || Display your statistics (frags, deaths, accuracy etc.) for the current game. This command is useful because it displays variables not shown in the scoreboard window.||
+|| `#stats total` || Display your cumulative statistics for all the games you've played on the server. Player records are identified by player name alone, for an unmixed record be sure to choose a distinctive player name. Player names cannot be reserved (we're missing an authentication system) and it's entirely possible that your record could be tainted by another player.||
+|| `#teamkills` || Display your team kill statistics and information on the server's team kill limit configuration. ||
+|| `#nextmap` || Tells you what the next map will be. The usefulness of the command depends on the server configuration, it only works when the server is configured to use a static server-side map rotation. ||
+|| `#msg <cn> <msg>` || Send a private chat message to another player in the game.||
+
+= Privileged Commands =
+
+|| *Command Line* || *Description* ||
+|| `#givemaster <cn>` || Hand over master privilege to another player. ||
+|| `#names <cn>` || List previously used names of a player. Players are identified by IP address.||
+|| `#who` || Display player information table. ||
+
+= Admin Only Commands =
+
+|| *Command Line* || *Description* ||
+|| `#invadmin <password>` || Become invisible admin.||
+|| `#mute <cn>` || Block chat messages coming from a player.||
+|| `#unmute <cn>` || Unblock chat messages coming from a player.||
+|| `#specall` || Force all players to join spectators. ||
+|| `#unspecall` || Force all players to join in the game. ||
+|| `#setmotd <msg>` || Change the message of the day banner.||
+|| `#pause` || Pause game.||
+|| `#resume` || Resume game.||
+|| `#1on1 <player1cn> <player2cn> <mapname>` || Prepare server for a 1on1 game.||
+|| `#group <tag> <team>` || Group players with matching tag name on to the same team.||
+|| `#spy` || Enter spy mode.||
+|| `#eval <code>` || Run arbitrary code on the server.||
