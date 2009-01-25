@@ -1,0 +1,29 @@
+** - Player authentication<br>
+** - When a player joins the server send a warning to admins if the player has an excessive kick/ban history.<br>
+** - Another team balance algorithm that evenly distributes player skill based on the cumulative player statistics.<br>
+** - Finish transfer stats database and write a general upload script<br>
+** - Separate password for each admin<br>
+** - Improve error messages reported by libcubescript<br>
+** - Provide a configure script<br>
+** - <strike>Date and Time entered into database is in a format not supported by SQLITE. This needs to be changed. Apparently the timezone is causing the problem. The daily activity page cannot be completed because of this.</strike><br>
+** - Ability to change what defines a mode. IE health armor ammo weapon damage start weapons. you could have a separate cs file which could define each mode.<br>
+
+== PHP scoreboard ==
+
+=== High priority ===
+
+** - Create class of commonly used functions.<br>
+** - <strike>Pages</strike><br>
+
+=== Low priority ===
+
+** - Panel of check boxes to set which columns are visible (uses Javascript).<br>
+** - Set and get cookie to remember visual configuration.<br>
+** - Cache stats data until new match record is inserted.<br>
+** - Cache game server info.<br>
+** - <strike>Query based column sorting.</strike><br>
+
+=== Quick fixes ===
+
+** - <strike>Title/heading reflecting the data query.</strike><br>
+** - <strike>Tooltip style consistent with page style.</strike><br>
