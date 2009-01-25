@@ -115,78 +115,52 @@
 
 == Variables ==
 
-{| border="1"
-! width="50%" | Name || Permissions || Description
-|-
-| <tt>servername</tt> || read write || Name of the server (seen in the description column on the server browser list)
-|-
-| <tt>maxclients</tt> || read write || Player capacity.
-|-
-| <tt>playercount</tt> || read || Number of players currently on the server.
-|-
-| <tt>gamecount</tt> || read || Number of map changes.
-|-
-| <tt>mastermode</tt> || read write ||
-|-
-| <tt>gamemode</tt> || read, writable in onsetmap handlers ||
-|-
-| <tt>mapname</tt> || read, writable in onsetmap handlers ||
-|-
-| <tt>uptime</tt> || read || The server's uptime in milliseconds.
-|-
-| <tt>gametime</tt> || read write|| The game time that was set at beginning of the current game.
-|-
-| <tt>timeleft</tt> || read || Minutes remaining of the current game.
-
-|-
-| <tt>allow_mm_veto</tt> || read write || Permit masters to change mastermode to veto.
-|-
-| <tt>allow_mm_locked</tt> || read write || Permit locked mastermode.
-|-
-| <tt>allow_mm_private</tt> || read write || Permit private mastermode.
-|-
-| <tt>autoapprove</tt> || read write || The server auto-approves master requests.
-|-
-| <tt>tx_bytes</tt> || read || Number of transmitted bytes from game packets.
-|-
-| <tt>tx_packets</tt> || read || Number of transmitted game packets.
-|-
-| <tt>rx_bytes</tt> || read || Number of received bytes from game packets.
-|-
-| <tt>rx_packets</tt> || read || Number of received game packets.
-|-
-| <tt>reassignteams</tt> || read write || Reassign teams on map change.
-|}
+|| *Name* || *Permissions* || *Description*||
+|| <tt>servername</tt> || read write || Name of the server (seen in the description column on the server browser list)||
+|| <tt>maxclients</tt> || read write || Player capacity.||
+|| <tt>playercount</tt> || read || Number of players currently on the server.||
+|| <tt>gamecount</tt> || read || Number of map changes.||
+|| <tt>mastermode</tt> || read write ||||
+|| <tt>gamemode</tt> || read, writable in onsetmap handlers ||||
+|| <tt>mapname</tt> || read, writable in onsetmap handlers ||||
+|| <tt>uptime</tt> || read || The server's uptime in milliseconds.||
+|| <tt>gametime</tt> || read write|| The game time that was set at beginning of the current game.||
+|| <tt>timeleft</tt> || read || Minutes remaining of the current game.||
+|| <tt>allow_mm_veto</tt> || read write || Permit masters to change mastermode to veto.||
+|| <tt>allow_mm_locked</tt> || read write || Permit locked mastermode.||
+|| <tt>allow_mm_private</tt> || read write || Permit private mastermode.||
+|| <tt>autoapprove</tt> || read write || The server auto-approves master requests.||
+|| <tt>tx_bytes</tt> || read || Number of transmitted bytes from game packets.||
+|| <tt>tx_packets</tt> || read || Number of transmitted game packets.||
+|| <tt>rx_bytes</tt> || read || Number of received bytes from game packets.||
+|| <tt>rx_packets</tt> || read || Number of received game packets.||
+|| <tt>reassignteams</tt> || read write || Reassign teams on map change.||
 
 == Constants ==
 
-{| border="1"
-! width="50%" | Name || Description/Notes
-|-
-| <tt>SERVER_FILENAME</tt> || Program name, read from argv[0] in main().
-|-
-| <tt>MASTERSERVER</tt> || The host name of the master server (used for server registration and master authentication). By default configuration, the value is "sauerbraten.org".
-|}
+|| *Name* || *Description/Notes*||
+|| <tt>SERVER_FILENAME</tt> || Program name, read from argv[0] in main().||
+|| <tt>MASTERSERVER</tt> || The host name of the master server (used for server registration and master authentication). By default configuration, the value is "sauerbraten.org".||
 
 === Mastermodes ===
 
-* <tt>MM_OPEN</tt>
-* <tt>MM_VETO</tt>
-* <tt>MM_LOCKED</tt>
-* <tt>MM_PRIVATE</tt>
+** <tt>MM_OPEN</tt><br>
+** <tt>MM_VETO</tt><br>
+** <tt>MM_LOCKED</tt><br>
+** <tt>MM_PRIVATE</tt><br>
 
 === Disconnect Reasons ===
 
-* <tt>DISC_NONE</tt>
-* <tt>DISC_EOP</tt>
-* <tt>DISC_CN</tt>
-* <tt>DISC_KICK</tt>
-* <tt>DISC_TAGT</tt>
-* <tt>DISC_IPBAN</tt>
-* <tt>DISC_PRIVATE</tt>
-* <tt>DISC_MAXCLIENTS</tt>
-* <tt>DISC_NUM</tt>
+** <tt>DISC_NONE</tt><br>
+** <tt>DISC_EOP</tt><br>
+** <tt>DISC_CN</tt><br>
+** <tt>DISC_KICK</tt><br>
+** <tt>DISC_TAGT</tt><br>
+** <tt>DISC_IPBAN</tt><br>
+** <tt>DISC_PRIVATE</tt><br>
+** <tt>DISC_MAXCLIENTS</tt><br>
+** <tt>DISC_NUM</tt><br>
 
 == See Also ==
 
-* [[CubeScript Runtime Library Reference]]
+** [[CubeScript Runtime Library Reference]]
