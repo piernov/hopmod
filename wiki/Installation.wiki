@@ -1,4 +1,4 @@
-#labels Phase-Deploy,manual
+#labels Phase-Deploy,manual,Phase-Requirements
 == Getting the Source Code ==
 
 <code>svn checkout http://hopmod.googlecode.com/svn/trunk/ hopmod </code>
