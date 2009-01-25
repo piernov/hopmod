@@ -1,0 +1,59 @@
+== Getting the Source Code ==
+
+<code>svn checkout http://hopmod.googlecode.com/svn/trunk/ hopmod </code>
+
+== Dependencies ==
+
+* Linux or FreeBSD
+* GeoIp C library ([http://www.maxmind.com/app/c Download])
+* SQLite3 C library ([http://www.sqlite.org/download.html Download])
+* Boost C++ Libraries ([http://sourceforge.net/project/showfiles.php?group_id=7586&package_id=8041&release_id=619445 Download]) (only headers)
+** mpl
+** type_traits
+** function
+** bind
+** shared_ptr
+* libmicrohttpd ([ftp://ftp.gnu.org/gnu/libmicrohttpd/libmicrohttpd-0.3.1.tar.gz Download])
+
+=== Perl Modules used by the IRC Bot ===
+
+==Base Bot==
+* LWP::UserAgent
+* HTTP::Request
+* Config::Auto
+* POE::Component::IRC::State
+* POE::Component::IRC::Plugin::Connector
+* POE::Component::IRC::Plugin::AutoJoin
+* POE::Component::IRC::Plugin::FollowTail
+
+==Player Locator Module==
+* IO::Socket
+* threads
+* threads::shared
+* LWP::Simple
+
+=== PHP Scoreboard ===
+
+* PHP 5
+* PHP PDO Sqlite Module
+
+=== Patches ===
+
+* bin/patcher.php requires PHP 5.
+
+== Compiling the Server ==
+
+Enter the src directory and run the make program, that's it, no configure script is provided unfortunately. Output files are written to the <tt>"../bin"</tt> directory.
+
+<code><pre>
+cd src
+make
+</pre></code>
+
+== Starting the Server ==
+
+<code>bin/serverctl start</code>
+
+== Stopping the Server ==
+
+<code>bin/serverctl stop</code>
