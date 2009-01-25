@@ -1,0 +1,38 @@
+#labels manual,Phase-Deploy
+== Introduction ==
+
+Everything from event handlers to variables and functions originate in <tt>conf/server.conf</tt> file, the first three scripts include all the extras server functions developed by the Hopmod project. 
+
+<code>
+exec "scripts/baselib.csl"
+exec "conf/vars.conf"
+exec "scripts/servermod.cs"
+
+//# Put your code here.
+</code>
+
+== Quick tips ==
+
+=== Setup a server shell (new experimental functionality) ===
+
+Add the following line to your conf/server.conf file:
+<code>script_socket_server 7894</code>
+
+Restart your server or execute the reloadconfig function for the changes to take affect. The <tt>script_socket_server</tt> function starts a light http server on a given port, accepting POST requests to "/serverexec", clients send cubescript code and the /serverexec resource responds with the code's evaluation result. The server only accepts connections from localhost.
+
+Run the bin/shell.rb script.
+<code>$ bin/shell.rb</code>
+
+If connection is successful you should see the shell prompt.
+<code>server> </code>
+
+=== Message from Console ===
+
+<code>console "youradminname" "Server will be shutting down at the end of this game!"</code>
+
+=== Timed banner message ===
+
+<code>interval (mins 5) [msg "Some annoying message"]</code>
+
+=== Generate scoreboard web page ===
+<code>exec scripts/stats/scoreboardgen.cs</code>
