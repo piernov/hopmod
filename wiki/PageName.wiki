@@ -85,27 +85,16 @@
 
 === Miscellaneous ===
 
-{| border="1"
-! width="50%" | Usage || Description
-|-
-| <tt>sleep &lt;countdown&gt; &lt;code&gt;</tt> || Schedule some code to be run in <countdown> milliseconds.
-|-
-| <tt>interval <countdown> &lt;code&gt;</tt> || Schedule some code to be run every <countdown> milliseconds.
-|-
-| <tt>script_pipe <file> <args> <onfinish></tt> || Create a script pipe between the server and a process, the process feeds the server with CubeScript code which it executes and returns the result of the last expression back to the process. 
-|-
-| <tt>resolve &lt;hostname&gt;</tt> || Resolve host name with dns query to return IP address.
-|-
-| <tt>country <ip></tt> || Resolve IP address to country. Requires the GeoIp module to be loaded.
-|-
-| <tt>daemon <file> <args> <stdout> <stderr></tt> || Spawn a daemon process.
-|-
-| <tt>kill <pid></tt> || Send SIGTERM signal to a process.
-|-
-| <tt>server_sleep <ms></tt> || Put server process into sleep state for a number of milliseconds.
-|-
-| <tt>shell_quote <shellcode></tt> || Escapes shell syntax characters.
-|}
+|| *Usage* || *Description*||
+|| <tt>sleep $countdown $code</tt> || Schedule some code to be run in $countdown milliseconds.||
+|| <tt>interval $countdown $code</tt> || Schedule some code to be run every $countdown milliseconds.||
+|| <tt>script_pipe $file $args $onfinish</tt> || Create a script pipe between the server and a process, the process feeds the server with CubeScript code which it executes and returns the result of the last expression back to the process. ||
+|| <tt>resolve $hostname</tt> || Resolve host name with dns query to return IP address.||
+|| <tt>country $ip</tt> || Resolve IP address to country. Requires the GeoIp module to be loaded.||
+|| <tt>daemon $file $args $stdout $stderr</tt> || Spawn a daemon process.||
+|| <tt>kill $pid</tt> || Send SIGTERM signal to a process.||
+|| <tt>server_sleep $ms</tt> || Put server process into sleep state for a number of milliseconds.||
+|| <tt>shell_quote $shellcode</tt> || Escapes shell syntax characters.||
 
 == Objects ==
 
@@ -113,23 +102,14 @@
 
 ==== Member functions ====
 
-{| border="1"
-! width="50%" | Usage || Description
-|-
-| <tt>open <db-filename></tt> || Open database connection.
-|-
-| <tt>onerror &lt;code&gt;</tt> || Execute &lt;code&gt; when the eval function fails. Note: this function doesn't catch the exception thrown in eval.
-|-
-| <tt>eval <sql> [<row-result-code>]</tt> || Evaluate SQL statement. 
-|-
-| <tt>last_rowid <db-file></tt> || Return the row id of the last inserted row.
-|-
-| <tt>close</tt> || Close database connection. 
-|-
-| <tt>busy_timeout <milliseconds></tt> || Set busy timeout for eval calls.
-|-
-| <tt>onbusy &lt;code&gt;</tt> || Execute &lt;code&gt; when an eval call has failed to execute because the database is locked.
-|}
+|| *Usage* || *Description*||
+|| <tt>open $db-filename</tt> || Open database connection.||
+|| <tt>onerror $code</tt> || Execute $code when the eval function fails. Note: this function doesn't catch the exception thrown in eval.||
+|| <tt>eval $sql [$row-result-code]</tt> || Evaluate SQL statement. ||
+|| <tt>last_rowid $db-file</tt> || Return the row id of the last inserted row.||
+|| <tt>close</tt> || Close database connection. ||
+|| <tt>busy_timeout $milliseconds</tt> || Set busy timeout for eval calls.||
+|| <tt>onbusy $code</tt> || Execute $code when an eval call has failed to execute because the database is locked.||
 
 === load ===
 
