@@ -1,3 +1,4 @@
+#labels manual
 ** - Player authentication<br>
 ** - When a player joins the server send a warning to admins if the player has an excessive kick/ban history.<br>
 ** - Another team balance algorithm that evenly distributes player skill based on the cumulative player statistics.<br>
