@@ -1,79 +1,47 @@
 == Functions ==
 
 === Logging ===
-|| *Usage* || *Description* 
-|| <tt>logfile <file> <func></tt> || Create and open a log file for writing. The second argument is a function name used to define your log function e.g "<funcname> <text>".||
-|| <tt>log_status <text></tt> || Write a log message to server status output (stdout).||
-|| <tt>log_error <text></tt> || Write a log message to server error output (stderr).||
-|| <tt>log <text></tt> || Write a log message to the general server log file, located at "logs/server.log". If you are running the IRC bot, this is the file it reads from to broadcast game and server events.||
+|| *Usage* || *Description* ||
+|| <tt>logfile $file $func</tt> || Create and open a log file for writing. The second argument is a function name used to define your log function e.g "$funcname $text".||
+|| <tt>log_status $text</tt> || Write a log message to server status output (stdout).||
+|| <tt>log_error $text</tt> || Write a log message to server error output (stderr).||
+|| <tt>log $text</tt> || Write a log message to the general server log file, located at "logs/server.log". If you are running the IRC bot, this is the file it reads from to broadcast game and server events.||
 
 === Server ===
 
-{| border="1"
-! width="50%" valign="top" | Usage || Description
-|-
-| <tt>msg <text></tt> || Broadcast a server message.
-|-
-| <tt>changemap <mode> <map></tt> || 
-|-
-| <tt>allowhost <hostname></tt> || Add ip to list of hosts allowed to connect to the server when the game mode is set to locked.
-|-
-| <tt>denyhost <hostname></tt> || Remove ip from list of allowed hosts.
-|-
-| <tt>flood_protection <type> <interval></tt> || Limit the frequency players can send packets to server. Packet types supported: SV_TEXT, SV_SAYTEAM, SV_SETMASTER, SV_MAPVOTE, SV_KICK.
-|-
-| <tt>restarter</tt> || Create a restart process so when the server process terminates it is respawned.
-|-
-| <tt>shutdown</tt> ||
-|-
-| <tt>event_handler <event-id> &lt;code&gt;</tt> || Run code on event.
-|-
-| <tt>adminpass <password></tt> || Compare server password with password argument.
-|-
-| <tt>clearconfig</tt> || Removes all server mod configurations without restarting the server process. <b>Warning: clearconfig closes all the log files and the script pipe.</b> After calling clearconfig, to restore the server mod, a server restart is required.
-|-
-| <tt>reloadconfig</tt> || Does clearconfig (see previous function) and then loads the main/startup configuration file (conf/server.conf). This function is useful for updating the server without restarting it.
-|-
-| <tt>ban <ip> <perm></tt> || Add banned ip/network. The perm argument value is 1 or 0.
-|-
-| <tt>removeban <ip> || Remove temporary or permanent ban.
-|-
-| <tt>clearbans</tt> || Clears all temporary bans.
-|}
+|| *Usage* || *Description* ||
+|| <tt>msg $text</tt> || Broadcast a server message.||
+|| <tt>changemap $mode $map</tt> || ||
+|| <tt>allowhost $hostname</tt> || Add ip to list of hosts allowed to connect to the server when the game mode is set to locked.||
+|| <tt>denyhost $hostname</tt> || Remove ip from list of allowed hosts.||
+|| <tt>flood_protection $type $interval</tt> || Limit the frequency players can send packets to server. Packet types supported: SV_TEXT, SV_SAYTEAM, SV_SETMASTER, SV_MAPVOTE, SV_KICK.||
+|| <tt>restarter</tt> || Create a restart process so when the server process terminates it is respawned.||
+|| <tt>shutdown</tt> ||||
+|| <tt>event_handler $event-id $code</tt> || Run code on event.||
+|| <tt>adminpass $password</tt> || Compare server password with password argument.||
+|| <tt>clearconfig</tt> || Removes all server mod configurations without restarting the server process. <b>Warning: clearconfig closes all the log files and the script pipe.</b> After calling clearconfig, to restore the server mod, a server restart is required.||
+|| <tt>reloadconfig</tt> || Does clearconfig (see previous function) and then loads the main/startup configuration file (conf/server.conf). This function is useful for updating the server without restarting it.||
+|| <tt>ban $ip $perm</tt> || Add banned ip/network. The perm argument value is 1 or 0.||
+|| <tt>removeban $ip || Remove temporary or permanent ban.||
+|| <tt>clearbans</tt> || Clears all temporary bans.||
 
 === Game ===
 
-{| border="1"
-! width="50%" valign="top" | Usage || Description
-|-
-| <tt>recorddemo <set> <file></tt> || 
-|-
-| <tt>stopdemo</tt> ||
-|-
-| <tt>teamgame</tt> || Returns 1 or 0 depending on whether current game mode is team-based.
-|-
-| <tt>itemsgame</tt> || Current game has items.
-|-
-| <tt>capturegame</tt> || Current game is capture based.
-|-
-| <tt>ctfgame</tt> || Current game is CTF based.
-|-
-| <tt>capture_teamscore <team></tt> ||
-|-
-| <tt>players</tt> || Returns a list of player client numbers.
-|-
-| <tt>teams</tt> || Returns a list of team names.
-|-
-| <tt>worstteam</tt> ||
-|-
-| <tt>teamscore <teamname></tt> ||
-|-
-| <tt>setteam <cn> <newteam></tt> ||
-|-
-| <tt>changetime <milliseconds></tt> || change game time (mins remaining). Use this function instead of setting gametime variable.
-|-
-| <tt>secsleft</tt> || Get the number of seconds remaining of the current game.
-|}
+|| *Usage* || *Description* ||
+|| <tt>recorddemo $set $file</tt> || || 
+|| <tt>stopdemo</tt> ||||
+|| <tt>teamgame</tt> || Returns 1 or 0 depending on whether current game mode is team-based.||
+|| <tt>itemsgame</tt> || Current game has items.||
+|| <tt>capturegame</tt> || Current game is capture based.||
+|| <tt>ctfgame</tt> || Current game is CTF based.||
+|| <tt>capture_teamscore $team</tt> ||||
+|| <tt>players</tt> || Returns a list of player client numbers.||
+|| <tt>teams</tt> || Returns a list of team names.||
+|| <tt>worstteam</tt> ||||
+|| <tt>teamscore $teamname</tt> ||||
+|| <tt>setteam $cn $newteam</tt> ||||
+|| <tt>changetime $milliseconds</tt> || change game time (mins remaining). Use this function instead of setting gametime variable.||
+|| <tt>secsleft</tt> || Get the number of seconds remaining of the current game.||
 
 === Player ===
 {| border="1"
@@ -228,6 +196,7 @@
 | <tt>gametime</tt> || read write|| The game time that was set at beginning of the current game.
 |-
 | <tt>timeleft</tt> || read || Minutes remaining of the current game.
+
 |-
 | <tt>allow_mm_veto</tt> || read write || Permit masters to change mastermode to veto.
 |-
