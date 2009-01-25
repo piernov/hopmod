@@ -44,83 +44,44 @@
 || <tt>secsleft</tt> || Get the number of seconds remaining of the current game.||
 
 === Player ===
-{| border="1"
-! width="50%" valign="top" | Usage || Notes
-|-
-| <tt>privmsg <cn> <text></tt> || Send a private server message.
-|-
-| <tt>player_name <cn></tt> ||
-|-
-| <tt>player_team <cn></tt> ||
-|-
-| <tt>player_ip <cn></tt> ||
-|-
-| <tt>player_ping <cn></tt> || Latest ping reported by the player.
-|-
-| <tt>player_lag <cn></tt> || Calculated from the flow of SV_POS packets.
-|-
-| <tt>player_status <cn></tt> || String values: alive, dead, spawning, lagged, editing or spectator.
-|-
-| <tt>player_contime <cn></tt> || Connection time in milliseconds.
-|-
-| <tt>player_conid <cn></tt> || Unique connection id.
-|-
-| <tt>player_priv <cn></tt> || String values: none, master or admin.
-|-
-| <tt>player_frags <cn></tt> ||
-|-
-| <tt>player_deaths <cn></tt> ||
-|-
-| <tt>player_hits <cn></tt> ||
-|-
-| <tt>player_misses <cn></tt> ||
-|-
-| <tt>player_accuracy <cn></tt> ||
-|-
-| <tt>player_effectiveness <cn></tt> || 
-|-
-| <tt>player_timeplayed <cn></tt> ||
-|-
-| <tt>player_rating <cn></tt> ||
-|-
-| <tt>player_gun <cn></tt> || Returns a string value.
-|-
-| <tt>player_health <cn></tt> ||
-|-
-| <tt>player_maxhealth <cn></tt> ||
-|-
-| <tt>player_pos_x <cn></tt> ||
-|-
-| <tt>player_pos_y <cn></tt> ||
-|-
-| <tt>player_pos_z <cn></tt> ||
-|-
-| <tt>player_var <cn> <id> [<value>]</tt> || Set or get a player variable. Player variables set using this function exist until the next game.
-|-
-| <tt>player_pvar <cn> <id> [<value>]</tt> || Set or get a persistent player variable. Player variables set using this function exist until the server process terminates.
-|-
-| <tt>player_has_var <cn> <id></tt> || Returns 1 or 0 depending on whether a player variable <id> already exists.
-|-
-| <tt>setpriv <cn> <level></tt> || Set a player's privilege level. Level string values: none, master or admin. It's possible to give more than 1 player a raised privilege level as master or admin control is passed to a player secretly.
-|-
-| <tt>kick <cn></tt> || Kick and ban player.
-|-
-| <tt>spec <cn></tt> || Force a player to join spectators.
-|-
-| <tt>unspec <cn></tt> || Force a player back into the game.
-|- 
-| <tt>setmaster <cn> <set></tt> || Force a player to claim or relinquish master control. The set argument has value of 1 or 0.
-|-
-| <strike><tt>approve <cn></tt></strike> || Approve a player who requested master.
-|-
-| <tt>spy <cn></tt> ||
-|-
-| <tt>dupname <cn></tt> || Returns value 1 or 0 depending on whether the player's name is a duplicate of another player's name, in the same game.
-|-
-| <tt>disc_reason <cn> || Returns a disconnect reason code, if one has been set.
-|-
-| <tt>teamplayerrank <cn></tt> ||
-|}
+|| Usage || Notes||
+|| <tt>privmsg $cn $text</tt> || Send a private server message.||
+|| <tt>player_name $cn</tt> ||||
+|| <tt>player_team $cn</tt> ||||
+|| <tt>player_ip $cn</tt> ||||
+|| <tt>player_ping $cn</tt> || Latest ping reported by the player.||
+|| <tt>player_lag $cn</tt> || Calculated from the flow of SV_POS packets.||
+|| <tt>player_status $cn</tt> || String values: alive, dead, spawning, lagged, editing or spectator.||
+|| <tt>player_contime $cn</tt> || Connection time in milliseconds.||
+|| <tt>player_conid $cn</tt> || Unique connection id.||
+|| <tt>player_priv $cn</tt> || String values: none, master or admin.||
+|| <tt>player_frags $cn</tt> ||||
+|| <tt>player_deaths $cn</tt> ||||
+|| <tt>player_hits $cn</tt> ||||
+|| <tt>player_misses $cn</tt> ||||
+|| <tt>player_accuracy $cn</tt> ||||
+|| <tt>player_effectiveness $cn</tt> || ||
+|| <tt>player_timeplayed $cn</tt> ||||
+|| <tt>player_rating cn$</tt> ||||
+|| <tt>player_gun $cn</tt> || Returns a string value.||
+|| <tt>player_health $cn</tt> ||||
+|| <tt>player_maxhealth $cn</tt> ||||
+|| <tt>player_pos_x $cn</tt> ||||
+|| <tt>player_pos_y $cn</tt> ||||
+|| <tt>player_pos_z $cn</tt> ||||
+|| <tt>player_var $cn $id [$value]</tt> || Set or get a player variable. Player variables set using this function exist until the next game.||
+|| <tt>player_pvar $cn $id [$value]</tt> || Set or get a persistent player variable. Player variables set using this function exist until the server process terminates.||
+|| <tt>player_has_var $cn $id</tt> || Returns 1 or 0 depending on whether a player variable $id already exists.||
+|| <tt>setpriv $cn $level</tt> || Set a player's privilege level. Level string values: none, master or admin. It's possible to give more than 1 player a raised privilege level as master or admin control is passed to a player secretly.||
+|| <tt>kick $cn</tt> || Kick and ban player.||
+|| <tt>spec $cn</tt> || Force a player to join spectators.||
+|| <tt>unspec $cn</tt> || Force a player back into the game.||
+|| <tt>setmaster $cn $set</tt> || Force a player to claim or relinquish master control. The set argument has value of 1 or 0.||
+|| <strike><tt>approve $cn</tt></strike> || Approve a player who requested master.||
+|| <tt>spy $cn</tt> || ||
+|| <tt>dupname $cn</tt> || Returns value 1 or 0 depending on whether the player's name is a duplicate of another player's name, in the same game.||
+|| <tt>disc_reason $cn || Returns a disconnect reason code, if one has been set.||
+|| <tt>teamplayerrank $cn</tt> ||||
 
 === Miscellaneous ===
 
