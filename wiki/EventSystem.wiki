@@ -41,7 +41,6 @@ These are predefined identifiers that you use to address an event type in a call
 === Team ===
 
 || *ID* || *Source* || *Data* ||
-
 || <tt>onresetflag</tt> || Enemy flag was reset (returned to enemy base). || $last_owner_cn ||
 || <tt>oncapturebase</tt> || Captured base. || $cn||
 || <tt>onlostbase</tt> || Lost base. || $cn||
