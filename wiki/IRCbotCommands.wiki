@@ -18,7 +18,7 @@
 
 ===Informational===
 
-
+|| *Usage        *    || *Description* ||
 || status || Displays the current game status.||
 || help || Duh||
 || who || Displays a list of connected players.||
