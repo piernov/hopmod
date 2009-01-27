@@ -45,7 +45,7 @@
 || <tt>secsleft</tt> || Get the number of seconds remaining of the current game.||
 
 === Player ===
-|| Usage || Notes||
+|| *Usage* || *Notes*||
 || <tt>privmsg $cn $text</tt> || Send a private server message.||
 || <tt>player_name $cn</tt> ||||
 || <tt>player_team $cn</tt> ||||
