@@ -16,6 +16,7 @@ Server-side player commands supported by the server.
 || `#teamkills` || Display your team kill statistics and information on the server's team kill limit configuration. ||
 || `#nextmap` || Tells you what the next map will be. The usefulness of the command depends on the server configuration, it only works when the server is configured to use a static server-side map rotation. ||
 || `#msg <cn> "<msg>"` || Send a private chat message to another player in the game.||
+|| `#cheater <cn>` || Will make a log entry and IRC bot will post a message in IRC_monitor_channel. The cmd is for reporting cheaters on server! ||
 
 = Privileged Commands =
 
@@ -35,8 +36,8 @@ Server-side player commands supported by the server.
 || `#setmotd <msg>` || Change the message of the day banner.||
 || `#pause` || Pause game.||
 || `#resume` || Resume game.||
-|| `#1on1 <player1cn> <player2cn> <gamemode> <mapname>` || Prepare server for a 1on1 game. <gamemode> = insta (instagib) ffa (ffa/default) eff (efficiency) icft (insta ctf) instateam (instagibteam)||
+|| `#1on1 <player1cn> <player2cn> <gamemode> <mapname>` || Prepare server for a 1on1 game. `<gamemode>` = insta (instagib) ffa (ffa/default) eff (efficiency) icft (insta ctf) instateam (instagibteam)||
 || `#group <tag> <team>` || Group players with matching tag name on to the same team.||
 || `#spy` || Enter spy mode.||
 || `#eval <code>` || Run arbitrary code on the server.||
-|| `#warning <cn> "<warning>"` || Warning System. Player will be kicked after 4 warnings! <warning> = tk (Teamkilling is bad! Only shoot RED!) namefaker (Don't use this name, because it is not your name!) bad (Please be nice here!) fair (Please play fair!) cheat (Don't use cheats here. You destroy the game, when you cheat!)||
+|| `#warning <cn> "<warning>"` || Warning System. Player will be kicked after 4 warnings! `<warning>` = tk (Teamkilling is bad! Only shoot RED!) namefaker (Don't use this name, because it is not your name!) bad (Please be nice here!) fair (Please play fair!) cheat (Don't use cheats here. You destroy the game, when you cheat!)||
