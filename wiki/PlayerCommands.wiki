@@ -41,3 +41,23 @@ Server-side player commands supported by the server.
 || `#spy` || Enter spy mode.||
 || `#eval <code>` || Run arbitrary code on the server.||
 || `#warning <cn> "<warning>"` || Warning System. Player will be kicked after 4 warnings! `<warning>` = tk (Teamkilling is bad! Only shoot RED!) namefaker (Don't use this name, because it is not your name!) bad (Please be nice here!) fair (Please play fair!) cheat (Don't use cheats here. You destroy the game, when you cheat!)||
+
+= Login Script (experimental) =
+
+|| *Command Line* || *Description* ||
+|| || ||
+|| *Normal Commands*|| || 
+|| `#login <name> <password>` || Player will be logged in. ||
+|| `#register <name> <password>` || A new player will be created ||
+|| `#greet "<text>"` || The greet message will shown, when player logs in. ( Don't forget the "") || 
+|| `#changepw <newpassword>` || The current's user password will change ||
+|| `#whoisonline` || Will display a list with all logged in Players ||
+|| `#cmds` || Will show you a list with commands, you have enough access for. ||
+|| `#logout` || You will log out! ||
+|| || ||
+|| *Admin Commands* || ||
+|| `#getmaster` || You will get admin ingame, other user will not see that you have admin access ||
+|| `#leavemaster` || You will leave admin status ||
+|| `#changeuserpw <user> <newpassword>` || The password of `<user>` will changed to `<newpassword>`||
+|| `#giveadmin <user>` ||  You will increase user level to admin permanently ||
+|| `#deladmin` || You will delete the admin. Be careful the owner of the server has the full controle of the server! ||
