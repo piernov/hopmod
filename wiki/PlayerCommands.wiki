@@ -43,7 +43,7 @@ Server-side player commands supported by the server.
 || `#warning <cn> "<warning>"` || Warning System. Player will be kicked after 4 warnings! `<warning>` = tk (Teamkilling is bad! Only shoot RED!) namefaker (Don't use this name, because it is not your name!) bad (Please be nice here!) fair (Please play fair!) cheat (Don't use cheats here. You destroy the game, when you cheat!)||
 
 = Login Script (experimental) =
-
+== login_script_enable must be 1 ==
 || *Command Line* || *Description* ||
 || || ||
 || *Normal Commands*|| || 
