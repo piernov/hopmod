@@ -62,3 +62,5 @@ Server-side player commands supported by the server.
 || `#giveadmin <user>` ||  You will increase user level to admin permanently ||
 || `#deladmin` || You will delete the admin. Be careful the owner of the server has the full controle of the server! ||
 || `#listuser` || You will see all registered players ||
+
+== To see the next features go to: http://obi.is-powning.de/files/loginscript.html ==
