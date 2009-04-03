@@ -30,7 +30,7 @@
 ===Administration===
 || *Usage* || *Description*|| 
 || update $password || Updates the bot from svn. This is best to do in a private message. For the changes to take affect you must issue a die command.||
-|| cubescript $text $password> || Executes a block of cubescript. This is best to do in a private message.||
+|| cubescript $text $password || Executes a block of cubescript. This is best to do in a private message.||
 || getslots/setslots $num || Displays / sets the number of player connections.||
 || die || Restarts the IRC bot Process.||
 || restart server || Restarts the game server process.||
