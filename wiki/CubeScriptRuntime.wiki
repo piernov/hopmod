@@ -1,0 +1,43 @@
+== Base ==
+
+=== Alias type ===
+|| *Usage* || *Description*||
+|| `alias <id> <code>` || Create or overwrite alias.||
+|| `push <id> <code>` || Push new code onto alias.||
+|| `pop <id>` || Pop latest code from alias.||
+
+=== Error handling ===
+
+|| *Usage* || *Description*||
+||  `throw <error-key>` || Throw exception to the script interpreter/application for handling. The error key must begin with "runtime."||
+|| `try <op> <arg> ... <catch code>` || Catch any exception thrown from inside the running operation to prevent normal exception handling and to resume script execution after try.||
+
+=== Object management ===
+
+|| *Usage* || *Description*||
+|| `new <existing-object-id> <new-object-id>` || ||
+|| `delete <id>`  || ||
+
+
+== Core ==
+
+=== Arithmetic ===
+
+
+|| *Usage* || *Description*||
+|| `+ <x> <y>` || Add ||
+|| `- <x> <y>` || Subtract||
+|| `* <x> <y>` || Multiply||
+|| `div <x> <y>` || Divide||
+|| `mod <x> <y>` || Modulo||
+|| `min <x> <y>` || Minimum||
+|| `max <x> <y>` || Maximum||
+|| `fadd <x> <y>` || Floating-point add||
+|| `fsub <x> <y>` || Floating-point subtract||
+|| `fmul <x> <y>` || Floating-point multiply||
+|| `fdiv <x> <y>` || Floating-point division||
+|| `round <x>` || Round to nearest integer.||
+|| `ceil <x>` || Smallest integral value not less than `<x>`||
+|| `floor <x>` || Largest integral value not greater than `<x>`||
+|| `abs <x>` || Absolute value||
+|| `fabs <x>` || Absolute value||
