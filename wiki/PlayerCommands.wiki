@@ -54,6 +54,14 @@ Server-side player commands supported by the server.
 || `#whoisonline` || Will display a list with all logged in Players ||
 || `#cmds` || Will show you a list with commands, you have enough access for. ||
 || `#logout` || You will log out! ||
+|| `#regclan <clantag> <password>`|| Add your clan to the database||
+|| `#joinclan <clantag> <password>`|| you will join the clan with the joinpassword ||
+|| `#clan <clantag>` || displays information about the clan||
+|| || ||
+|| *Clan-Admin Commands*|| ||
+|| `#clansetname "<clanname>"` || To set the whole name of your clan not only the tag ||
+|| `#clansetirc "<clanirc>"` || Set the clan-IRC channel||
+|| `#clansetweb <clanwebsite>` || Set the clan-website||
 || || ||
 || *Admin Commands* || ||
 || `#getmaster` || You will get admin ingame, other user will not see that you have admin access ||
