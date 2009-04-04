@@ -48,7 +48,7 @@
 
 || *Usage* || *Description*||
 || `! <bool>` || Not||
-|| `| | <bool> <bool>` || Or||
+|| |**| `<bool> <bool>` || Or||
 || `&& <bool> <bool>` || And||
 
 
@@ -98,7 +98,7 @@
 
 
 || *Usage* || *Description*||
-|| now || Returns Unix Timestamp||
+|| `now` || Returns Unix Timestamp||
 || `date <timestamp>` || Returns standard string representation of a date, the format is "YYYY-MM-DD".||
 || `time <timestamp>` || Returns standard string representation of time, the format is "HH:MM:SS[+/-]TZ"||
 || `datetime <timestamp>` || Returns standard string representation of date and time, the format is "YYYY-MM-DDTHH:hh:mm::ss[+/-]TZ".||
@@ -129,12 +129,12 @@
 
 || *Usage* || *Description*||
 || `path? <filename>` || Returns 1 or 0 depending on whether the path is found.||
-|| `file_modified <filename` || Returns file's modification date-time as Unix timestamp.||
+|| `file_modified <filename>` || Returns file's modification date-time as Unix timestamp.||
 
 === Environment Variables ===
 
 
 || *Usage*||
-|| getvar `<id>`||
-|| setvar `<id> <value>`||
-|| unsetvar `<id>`||
+|| `getvar <id>`||
+|| `setvar <id> <value>`||
+|| `unsetvar <id>`||
