@@ -121,3 +121,46 @@
 || `ip_to_country_code(ip` || Resolve IP address to a two letter country code ||
 || `load_geoip_database(filename)` || Resolve ip address to a two letter country code ||
 || `gethostbyname(name)` || Resolve FQDN to IP address. ||
+
+== Player Events ==
+
+|| *Name* || Parameters|| *Description* ||
+|| connect || cn || ||
+|| disconnect || cn, reason || ||
+|| failedconnect || ip, reason || ||
+|| kick || cn, bantime, admin, reason || ||
+|| active || cn || Player has loaded the map is now in game. ||
+|| rename || cn, oldname, newname || ||
+|| reteam || cn, oldteam, newteam || ||
+|| text || cn, msg || Chat message ||
+|| sayteam || cn, msg || Chat message to team ||
+|| teamkill || cn, victimCN || ||
+|| setmaster || cn, priv, success || ||
+|| spectator || cn, joined || Player joined or left spectators ||
+|| mapvote || cn, map, mode || ||
+|| mapcrcfail || cn || Player has modified map ||
+|| authreq || cn, name, domain || Authentication request ||
+|| authrep || cn, answer || Authentication reply ||
+|| auth || cn, name, domain, success || Auth challenge complete ||
+
+== Game Events ==
+
+|| *Name* || Parameters|| *Description* ||
+|| setnextgame || || Time to set next map and game mode ||
+|| gamepaused || || ||
+|| gameresumed || || ||
+|| intermission || || Time remaining reached 0 and now game in intermission||
+|| finishedgame || || Unlike intermission, this event is always sent before map change ||
+|| timeupdate || minsremain || Event sent every minute ||
+|| mapchange || map, mode || New game ||
+|| beginrecord || id, filename || Demo of the current game is now being recorded ||
+|| endrecord || id, filesize || Finished recording demo ||
+|| addbot || cn || Player has added a bot to the game ||
+|| delbot || cn || Player has removed bot from the game ||
+
+== Server Events ==
+
+|| *Name* || Parameters|| *Description* ||
+|| started || || Server process has just started ||
+|| shutdown || || Server process is shutting down ||
+|| reloadscripts || || Signal shutdown and startup without restarting the server process ||
