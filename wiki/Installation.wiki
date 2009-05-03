@@ -1,57 +1,95 @@
 #labels Phase-Deploy,manual,Phase-Requirements
 
-== Dependencies ==
+Prerequisite and installation details for the latest version of Hopmod
+(branches/ng) for the latest version of Cube 2:Sauerbraten.
 
-** - Linux or FreeBSD<br>
-** - GeoIp C library ( [http://www.maxmind.com/app/c Download] )<br>
-** - SQLite3 C library ( [http://www.sqlite.org/download.html Download] )<br>
-** - Boost C++ Libraries ( [http://sourceforge.net/project/showfiles.php?group_id=7586&package_id=8041&release_id=619445 Download] ) (only headers)<br>
-** - mpl<br>
-** - type_traits<br>
-** - function<br>
-** - bind<br>
-** - shared_ptr<br>
-** - libmicrohttpd ( [ftp://ftp.gnu.org/gnu/libmicrohttpd/libmicrohttpd-0.3.1.tar.gz Download] )<br>
+== Operating System ==
 
-=== Perl Modules used by the IRC Bot ===
+You will need to have Linux running if you want to use Hopmod, this is the
+operating system Hopmod was developed and tested on.
+
+== C Library Dependencies ==
+
+* GeoIp ([http://www.maxmind.com/app/c Download])<br>
+* SQLite3 ([http://www.sqlite.org/download.html Download])<br>
+* GNU libmicrohttpd ([ftp://ftp.gnu.org/gnu/libmicrohttpd/libmicrohttpd-0.4.1.tar.gz Download])<br>
+
+All the other libraries used by Hopmod are included with the source distribution.
+
+=== Perl modules required by the IRC bot ===
 
 ==Base Bot==
-** - LWP::UserAgent<br>
-** - HTTP::Request<br>
-** - Config::Auto<br>
-** - POE::Component::IRC::State<br>
-** - POE::Component::IRC::Plugin::Connector<br>
-** - POE::Component::IRC::Plugin::AutoJoin<br>
-** - POE::Component::IRC::Plugin::FollowTail<br>
+* POE::Component::IRC::State<br>
+* POE::Component::IRC::Plugin::Connector<br>
+* POE::Component::IRC::Plugin::AutoJoin<br>
+* POE::Component::IRC::Plugin::FollowTail<br>
+* Config::Auto<br>
+* LWP::UserAgent<br>
+* HTTP::Request<br>
 
 ==Player Locator Module==
-** - IO::Socket<br>
-** - threads<br>
-** - threads::shared<br>
-** - LWP::Simple<br>
+* IO::Socket<br>
+* threads<br>
+* threads::shared<br>
+* LWP::Simple<br>
 
-=== PHP Scoreboard ===
+== Getting the Source Code ==
 
-** - PHP 5<br>
-** - PHP PDO Sqlite Module<br>
+[http://code.google.com/p/hopmod/source/checkout SVN checkout]
 
-=== Patches ===
+== Building Hopmod ==
 
-** - bin/patcher.php requires PHP 5.
+===Create build environment===
 
-== Compiling the Server ==
+Hopmod comes distributed with the source code for a non-standard build tool
+called Boost Jam which is used to compile and install everything, for a fresh
+copy of Hopmod you will need to compile this tool before you can compile Hopmod.
 
-Enter the src directory and run the make program, that's it, no configure script is provided unfortunately. Output files are written to the <tt>"../bin"</tt> directory.
+{{{
+./buildtools.sh
+aclocal
+autoconf
+}}}
 
-<code>
-cd src
-make
-</code>
+The first command compiles and installs Boost Jam, the next two commands are
+responsible for generating the configure script. If you find aclocal and/or 
+autoconf are not found then search and install the Automake package onto your
+system.
 
-== Starting the Server ==
+Once the build tool and configure script exists you shouldn't have to run those
+commands again, except for when configure.ac changes, in which case you you run
+`autoconf` to regenerate the configure script.
 
-<code>bin/serverctl start</code>
+===Compile and installation===
 
-== Stopping the Server ==
+{{{
+./configure
+./bin/bjam release
+}}
 
-<code>bin/serverctl stop</code>
+These are the two commands you run everytime to compile the latest revision of
+Hopmod. Installation is automatic, with the compiled server program and 
+libraries copied to `./bin` directory and the script modules copied to
+the `./script/package` directory.
+
+== Configuration ==
+
+The server configuration file exists at `./conf/server.conf` and is written
+in CubeScript.
+
+== Startup and Shutdown ==
+
+{{{
+./bin/server
+}}}
+
+To immediately shutdown the server:
+
+{{{
+./bin/server stop
+}}}
+
+In the event of a crash the named pipe `serverexec` will be left undeleted. The
+server script uses the named pipe to detect if the server is running, when a
+crash occurs it will wrongfully detect the server as running when you use the
+script to startup. To resolve this issue simply delete the named pipe file.
