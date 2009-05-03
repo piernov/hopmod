@@ -1,5 +1,4 @@
 #labels Phase-Deploy,manual,Phase-Requirements
-
 Prerequisite and installation details for the latest version of Hopmod
 (branches/ng) for the latest version of Cube 2:Sauerbraten.
 
@@ -16,9 +15,9 @@ operating system Hopmod was developed and tested on.
 
 All the other libraries used by Hopmod are included with the source distribution.
 
-=== Perl modules required by the IRC bot ===
+== Perl modules required by the IRC bot ==
 
-==Base Bot==
+===Base Bot===
 * POE::Component::IRC::State<br>
 * POE::Component::IRC::Plugin::Connector<br>
 * POE::Component::IRC::Plugin::AutoJoin<br>
@@ -27,7 +26,7 @@ All the other libraries used by Hopmod are included with the source distribution
 * LWP::UserAgent<br>
 * HTTP::Request<br>
 
-==Player Locator Module==
+===Player Locator Module===
 * IO::Socket<br>
 * threads<br>
 * threads::shared<br>
@@ -65,7 +64,7 @@ commands again, except for when configure.ac changes, in which case you you run
 {{{
 ./configure
 ./bin/bjam release
-}}
+}}}
 
 These are the two commands you run everytime to compile the latest revision of
 Hopmod. Installation is automatic, with the compiled server program and 
