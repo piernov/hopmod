@@ -1,6 +1,5 @@
+#summary Prerequisite and installation details for the latest version of Hopmod (branches/ng) for the latest version of Cube 2:Sauerbraten.
 #labels Phase-Deploy,manual,Phase-Requirements
-Prerequisite and installation details for the latest version of Hopmod
-(branches/ng) for the latest version of Cube 2:Sauerbraten.
 
 == Operating System ==
 
