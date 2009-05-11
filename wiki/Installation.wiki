@@ -8,31 +8,34 @@ operating system Hopmod was developed and tested on.
 
 == C Library Dependencies ==
 
-* GeoIp ([http://www.maxmind.com/app/c Download])<br>
-* SQLite3 ([http://www.sqlite.org/download.html Download])<br>
-* GNU libmicrohttpd ([ftp://ftp.gnu.org/gnu/libmicrohttpd/libmicrohttpd-0.4.1.tar.gz Download])<br>
+ * GeoIp ([http://www.maxmind.com/app/c Download])
+ * SQLite3 ([http://www.sqlite.org/download.html Download])
+ * GNU libmicrohttpd ([ftp://ftp.gnu.org/gnu/libmicrohttpd/libmicrohttpd-0.4.1.tar.gz Download])
 
 All the other libraries used by Hopmod are included with the source distribution.
 
 == Perl modules required by the IRC bot ==
 
-===Base Bot===
-* POE::Component::IRC::State<br>
-* POE::Component::IRC::Plugin::Connector<br>
-* POE::Component::IRC::Plugin::AutoJoin<br>
-* POE::Component::IRC::Plugin::FollowTail<br>
-* Config::Auto<br>
-* LWP::UserAgent<br>
-* HTTP::Request<br>
+=== Base Bot ===
 
-===Player Locator Module===
-* IO::Socket<br>
-* threads<br>
-* threads::shared<br>
-* LWP::Simple<br>
+ * POE::Component::IRC::State
+ * POE::Component::IRC::Plugin::Connector
+ * POE::Component::IRC::Plugin::AutoJoin
+ * POE::Component::IRC::Plugin::FollowTail
+ * Config::Auto
+ * LWP::UserAgent
+ * HTTP::Request
+
+=== Player Locator Module ===
+
+ * IO::Socket
+ * threads
+ * threads::shared
+ * LWP::Simple
 
 == Requirements for the Scoreboard ==
-* PHP >= 5.3.0RC1<br>
+
+ * PHP >= 5.3.0RC1<br>
 
 == Getting the Source Code ==
 
@@ -40,7 +43,7 @@ All the other libraries used by Hopmod are included with the source distribution
 
 == Building Hopmod ==
 
-===Create build environment===
+=== Create the build environment ===
 
 Hopmod comes distributed with the source code for a non-standard build tool
 called Boost Jam which is used to compile and install everything, for a fresh
@@ -48,24 +51,18 @@ copy of Hopmod you will need to compile this tool before you can compile Hopmod.
 
 {{{
 ./buildtools.sh
-aclocal
-autoconf
+./autogen.sh
 }}}
 
-The first command compiles and installs Boost Jam, the next two commands are
-responsible for generating the configure script. If you find aclocal and/or 
-autoconf are not found then search and install the Automake package onto your
-system.
+The first command compiles and installs Boost Jam, the other command generates the configure script.
 
-Once the build tool and configure script exists you shouldn't have to run those
-commands again, except for when configure.ac changes, in which case you you run
-`autoconf` to regenerate the configure script.
+If configure.ac changes then run `autoconf` or `./autogen.sh` to regenerate the configure script.
 
-===Compile and installation===
+=== Compile and installation ===
 
 {{{
 ./configure
-./bin/bjam release
+make
 }}}
 
 These are the two commands you run everytime to compile the latest revision of
