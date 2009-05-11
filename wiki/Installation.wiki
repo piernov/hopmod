@@ -10,7 +10,6 @@ operating system Hopmod was developed and tested on.
 
  * GeoIp ([http://www.maxmind.com/app/c Download])
  * SQLite3 ([http://www.sqlite.org/download.html Download])
- * GNU libmicrohttpd ([ftp://ftp.gnu.org/gnu/libmicrohttpd/libmicrohttpd-0.4.1.tar.gz Download])
 
 All the other libraries used by Hopmod are included with the source distribution.
 
