@@ -1,0 +1,62 @@
+
+import modules ;
+
+project : source-location src ;
+
+switch [ modules.peek : OS ]
+{
+    case "LINUX" : 
+        lib dl : : <name>dl ;
+        alias osconfig : : : : <define>LUA_USE_LINUX ;
+    case "*BSD" :
+        alias dl : ;
+        alias osconfig : : : : <define>LUA_USE_POSIX <define>LUA_USE_DLOPEN ;
+}
+
+lib lua :
+    lapi.c      
+    lcode.c   
+    ldo.c    
+    lgc.c     
+    llex.c      
+    loadlib.c   
+    loslib.c   
+    lstring.c  
+    ltablib.c      
+    lzio.c
+    lauxlib.c   
+    ldblib.c  
+    ldump.c  
+    linit.c   
+    lmathlib.c  
+    lobject.c   
+    lparser.c  
+    lstrlib.c  
+    ltm.c      
+    lundump.c  
+    lbaselib.c  
+    ldebug.c  
+    lfunc.c  
+    liolib.c  
+    lmem.c
+    lopcodes.c
+    lstate.c
+    ltable.c
+    lvm.c
+    osconfig
+    dl
+    : <link>shared : : <include>src ;
+
+lib readline : : <name>readline ;
+lib ncurses : : <name>ncurses ;
+lib history : : <name>history ;
+
+exe luashell :
+    lua.c
+    lua
+    readline
+    ncurses
+    history
+    : <define>LUA_USE_LINUX ;
+
+alias headers : : : : <include>src ;

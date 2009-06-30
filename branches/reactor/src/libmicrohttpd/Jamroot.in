@@ -1,0 +1,20 @@
+
+project : source-location src ;
+
+alias headers : : : : 
+    <include>.
+    <include>src/include
+    <include>src/daemon ;
+
+lib pthread : : <name>pthread ;
+
+lib httpd :
+    daemon/connection.c
+    daemon/daemon.c
+    daemon/internal.c
+    daemon/memorypool.c
+    daemon/postprocessor.c
+    daemon/reason_phrase.c
+    daemon/response.c
+    headers
+    pthread ;

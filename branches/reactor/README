@@ -1,0 +1,15 @@
+
+== Building Hopmod ==
+
+For the first and only time:
+
+    ./buildtools.sh
+    ./autogen.sh
+    
+To compile and install the server:
+
+    ./configure
+    make
+    
+    ./bin/server
+    
