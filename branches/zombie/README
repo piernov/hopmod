@@ -1,9 +1,0 @@
-=== changes and adds for hopmod ===
-
-> tree is experimental
-> it doesn't include hopmod...
-
-== install ==
-
-> download and build hopmod
-> add/ replace the content of "bin/", "conf/", "log/" and "script/"
