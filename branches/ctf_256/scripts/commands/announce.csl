@@ -1,8 +1,0 @@
-
-if (strcmp (player_priv $cn) "admin") [
-    if (>= (listlen $arguments) 2) [
-        log (format "ANNOUNCE %1 %2" (player_name $cn) (at $arguments 1)) 
-	privmsg $cn "Announcement sent"
-    ] [privmsg $cn (err "Missing argument #announce <announcement>.")]
-] [privmsg $cn (err "Permission denied.")]
-
