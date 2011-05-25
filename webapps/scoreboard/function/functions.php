@@ -5,18 +5,18 @@
 if (!$is_included) exit();
 
 function escape_sql($val, $is_num=false) {
-	if (!$is_num) {
-		if (function_exists("sqlite_escape_string")) {
-			$val = sqlite_escape_string($val);
-		}
-		else {
-			$val = addslashes($val);
-		}
-	}
-	else {
-		for($i = 0; $i <= strlen($val)/*bad way but works*/; $i++)
-			$val[$i] = is_numeric($val[$i]) ? $val[$i] : '';
-	}
+    if (!$is_num) {
+        if (function_exists("sqlite_escape_string")) {
+            $val = sqlite_escape_string($val);
+        }
+        else {
+            $val = addslashes($val);
+        }
+    }
+    else {
+        for($i = 0; $i <= strlen($val)/*bad way but works*/; $i++)
+        $val[$i] = is_numeric($val[$i]) ? $val[$i] : '';
+    }
     return $val;
 }
 
@@ -55,7 +55,7 @@ function get_args($block = array()) {
 }
 
 function get_msec() {
-	list($usec, $sec) = explode(" ",microtime());
+	list($usec, $sec) = explode(" ", microtime());
 	$milliseconds = (((float)$usec/1000) + (float)$sec); 
 	return $milliseconds;
 }
@@ -96,7 +96,7 @@ function get_player_table($page=1, $days=0, $sel_player="") {
 	}
 	else {
         if ($sel_player != "") $sel_player = "WHERE name LIKE '%{$sel_player}%'";
-		$sql = "SELECT * FROM playertotals {$sel_player} ORDER BY frags DESC LIMIT {$config['res_per_page']} OFFSET ({$config['res_per_page']} * ".($page - 1).")"; 
+		$sql = "SELECT * FROM playertotals {$sel_player} ORDER BY frags DESC LIMIT {$config['res_per_page']} OFFSET ".($config['res_per_page']*($page - 1)); 
 	}
 	
 	$totals = read_array($sql);
@@ -112,43 +112,43 @@ function get_player_table($page=1, $days=0, $sel_player="") {
 	
 	for ($i = 0; $i < count($totals) - 1; $i++) {
 		
-		$player = $totals[$i];
+        $player = $totals[$i];
 		
-		$table .= "<tr>";
-		$table .= td(($page - 1) * $config['res_per_page'] + $i + 1);
-		$table .= td($player["name"]);
-		if ($config['show_country']) $table .= td(get_country_name($player["ipaddr"]));
-		$table .= td($player["frags"]);
-		$table .= td($player["deaths"]);
-		$table .= td(round($player["frags"] / ($player["deaths"] ? $player["deaths"] : 1), 2));
-		if ($config['show_kpg']) $table .= td(round($player["frags"] / ($player["games"] ? $player["games"] : 1), 2));
-		$table .= td($player["suicides"]);
-		$table .= td($player["teamkills"]);
-		$table .= td(round($player["hits"] / ($player["shots"] ? $player["shots"] : 1) * 100, 2)."%");
-		$table .= td($player["games"]);
-		$table .= td(format_time($player["timeplayed"]));
-		$table .= td($player["wins"]);
-		$table .= "</tr>";
+        $table .= "<tr>";
+        $table .= td(($page - 1) * $config['res_per_page'] + $i + 1);
+        $table .= td($player["name"]);
+        if ($config['show_country']) $table .= td(get_country_name($player["ipaddr"]));
+        $table .= td($player["frags"]);
+        $table .= td($player["deaths"]);
+        $table .= td(round($player["frags"] / ($player["deaths"] ? $player["deaths"] : 1), 2));
+        if ($config['show_kpg']) $table .= td(round($player["frags"] / ($player["games"] ? $player["games"] : 1), 2));
+        $table .= td($player["suicides"]);
+        $table .= td($player["teamkills"]);
+        $table .= td(round($player["hits"] / ($player["shots"] ? $player["shots"] : 1) * 100, 2)."%");
+        $table .= td($player["games"]);
+        $table .= td(format_time($player["timeplayed"]));
+        $table .= td($player["wins"]);
+        $table .= "</tr>";
 	}
 	
 	$table .= '</table>';
 	
-	unset($totals);
+    unset($totals);
 	
-	if ($days > 0) {
-		$sql_count = "
-			SELECT count(players.name) FROM players, games
-			WHERE players.game_id = games.id AND games.datetime > ".(time() - $days*60*60*24).($player!=""? " AND name LIKE '%".$player."%'" : "")."
-			GROUP by players.name
-		";
-	}
-	else {
-		$sql_count = "SELECT count(*) AS count FROM playertotals {$sel_player}";
-	}
+    if ($days > 0) {
+        $sql_count = "
+            SELECT count(players.name) FROM players, games
+            WHERE players.game_id = games.id AND games.datetime > ".(time() - $days*60*60*24).($player!=""? " AND name LIKE '%".$player."%'" : "")."
+            GROUP by players.name
+        ";
+    }
+    else {
+        $sql_count = "SELECT count(*) AS count FROM playertotals {$sel_player}";
+    }
 	
-	$count = $days > 0 ? array("count" => count(read_array($sql_count))) : read($sql_count);
+    $count = $days > 0 ? array("count" => count(read_array($sql_count))) : read($sql_count);
 
-	return array($table, $count["count"]);
+    return array($table, $count["count"]);
 }
 
 function get_gamelist_table($page=1, $days=0) {
@@ -157,7 +157,7 @@ function get_gamelist_table($page=1, $days=0) {
 	if ($page == NULL || $page == "" || $page == 0 || !is_numeric($page)) $page = 1;
 	
 	$sel_games = $days > 0 ? "WHERE datetime > ".(time() - $days*60*60*24) : "";
-	$games = read_array("SELECT * FROM games {$sel_games} ORDER BY datetime DESC LIMIT {$config['res_per_page']} OFFSET ({$config['res_per_page']} * ".($page - 1).")");
+	$games = read_array("SELECT * FROM games {$sel_games} ORDER BY datetime DESC LIMIT {$config['res_per_page']} OFFSET ".($config['res_per_page']*($page - 1)));
 	
 	if (!$games) return false;
 	
@@ -174,7 +174,7 @@ function get_gamelist_table($page=1, $days=0) {
 		$game = $games[$i];
 		
 		$table .= "<tr>";
-		$table .= td('<a href="?game_id='.$game["id"].'">'.date("d.m.Y H:i:s", $game["datetime"]).'</a>', false);
+		$table .= td('<a href="?game_id='.$game["id"].'">'.($config['use_mysql']?$game["datetime"]:date("d-m-Y H:i:s", $game["datetime"])).'</a>', false);
 		$table .= td($game["gamemode"]);
 		$table .= td($game["mapname"]);
 		$table .= td($game["duration"]." Minutes");
