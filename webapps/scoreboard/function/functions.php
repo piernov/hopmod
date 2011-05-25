@@ -10,7 +10,7 @@ function escape_sql($val, $is_num=false) {
             $val = mysql_real_escape_string($val);
         }
         else {
-            if (function_exists("sqlite_escape_string")) {
+            if (!$config['use_mysql'] && function_exists("sqlite_escape_string")) {
                 $val = sqlite_escape_string($val);
             }
             else {
