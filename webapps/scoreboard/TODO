@@ -1,0 +1,5 @@
+Add "daily", "weekly", "monthly", "all", "gamelist" buttons on top
+Make players linkable to their Games
+Fix "Unknown" Countries when days argument is given
+Add LastGame Column + a var to turn it on/off
+Better layout/design

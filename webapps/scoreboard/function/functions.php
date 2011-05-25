@@ -4,10 +4,19 @@
  */
 if (!$is_included) exit();
 
-function escape_sql($val) {
-    $val = addslashes($val);
-    $val = str_replace("%", chr(92)."%", $val);
-    $val = str_replace("_", chr(92)."_", $val);
+function escape_sql($val, $is_num=false) {
+	if (!$is_num) {
+		if (function_exists("sqlite_escape_string")) {
+			$val = sqlite_escape_string($val);
+		}
+		else {
+			$val = addslashes($val);
+		}
+	}
+	else {
+		for($i = 0; $i <= strlen($val)/*bad way but works*/; $i++)
+			$val[$i] = is_numeric($val[$i]) ? $val[$i] : '';
+	}
     return $val;
 }
 
@@ -96,9 +105,9 @@ function get_player_table($page=1, $days=0, $sel_player="") {
 	
 	$table = "";
 	
-	$table .= '<table border="1" id="scoreboard" class="tablesorter" style="width:1000px;">';
+	$table .= '<table border="1" id="scoreboard" class="tablesorter" style="width:'.$config['table_width'].'px;">';
 	$table .= '<thead>';
-	$table .= '<th>Rank</th><th>Name</th><th>Country</th><th>Frags</th><th>Deaths</th><th>Ratio</th><th>Suicides</th><th>Teamkills</th><th>Accuracy</th><th>Games Played</th><th>Time Played</th><th>Wins</th>';
+	$table .= '<th>Rank</th><th>Name</th>'.($config['show_country']?'<th>Country</th>':'').'<th>Frags</th><th>Deaths</th><th>KpD</th>'.($config['show_kpg']?'<th>KpG</th>':'').'<th>Suicides</th><th>Teamkills</th><th>Accuracy</th><th>Games Played</th><th>Time Played</th><th>Wins</th>';
 	$table .= '</thead>';
 	
 	for ($i = 0; $i < count($totals) - 1; $i++) {
@@ -108,10 +117,11 @@ function get_player_table($page=1, $days=0, $sel_player="") {
 		$table .= "<tr>";
 		$table .= td(($page - 1) * $config['res_per_page'] + $i + 1);
 		$table .= td($player["name"]);
-		$table .= td(get_country_name($player["ipaddr"]));
+		if ($config['show_country']) $table .= td(get_country_name($player["ipaddr"]));
 		$table .= td($player["frags"]);
 		$table .= td($player["deaths"]);
 		$table .= td(round($player["frags"] / ($player["deaths"] ? $player["deaths"] : 1), 2));
+		if ($config['show_kpg']) $table .= td(round($player["frags"] / ($player["games"] ? $player["games"] : 1), 2));
 		$table .= td($player["suicides"]);
 		$table .= td($player["teamkills"]);
 		$table .= td(round($player["hits"] / ($player["shots"] ? $player["shots"] : 1) * 100, 2)."%");
