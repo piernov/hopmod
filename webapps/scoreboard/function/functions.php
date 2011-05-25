@@ -6,11 +6,16 @@ if (!$is_included) exit();
 
 function escape_sql($val, $is_num=false) {
     if (!$is_num) {
-        if (function_exists("sqlite_escape_string")) {
-            $val = sqlite_escape_string($val);
+        if ($config['use_mysql'] && function_exists("mysql_real_escape_string")) {
+            $val = mysql_real_escape_string($val);
         }
         else {
-            $val = addslashes($val);
+            if (function_exists("sqlite_escape_string")) {
+                $val = sqlite_escape_string($val);
+            }
+            else {
+                $val = addslashes($val);
+            }
         }
     }
     else {
