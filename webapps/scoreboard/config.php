@@ -19,6 +19,6 @@ $config['show_kpg']     = 1;
 $config['show_country'] = 1;
 $config['table_width']  = 1050;
 
-$config['exclude_names'] = array("unnamed", "bot" => "0.0.0.0");
+$config['exclude_names'] = array("unnamed" => "", "bot" => "0.0.0.0");
 
 ?>

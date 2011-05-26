@@ -20,7 +20,7 @@ function escape_sql($val, $is_num=false) {
     }
     else {
         for($i = 0; $i <= strlen($val)/*bad way but works*/; $i++)
-        $val[$i] = is_numeric($val[$i]) ? $val[$i] : '';
+            $val[$i] = is_numeric($val[$i]) ? $val[$i] : '';
     }
     return $val;
 }
@@ -42,6 +42,11 @@ function format_time($time) {
     return $ftime;
 }
 
+function convert_timestamp($timestamp) {
+    global $config;
+    return $config['use_mysql'] ? $timestamp : date("d-m-Y H:i:s", $timestamp);
+}
+
 function color($color, $val) {
     return '<font color="'.$color.'">'.$val.'</font>';
 }
@@ -57,6 +62,21 @@ function get_args($block = array()) {
 		$args .= htmlspecialchars($key.'='.$arg);
 	}
 	return $args;
+}
+
+function exclude_names() {
+    global $config;
+    $syntax = "";
+    $i = 0;
+    if (sizeof($config['exclude_names']) > 0) {
+        foreach($config['exclude_names'] as $name => $ip) { 
+            if ($i++ > 0) $syntax .= " OR ";
+            if ($ip != "") $syntax .= "(";
+            $syntax .= "name = '".escape_sql($name)."'";
+            if ($ip != "") $syntax .= " AND ipaddr LIKE '%".escape_sql($ip)."%')";
+        }
+    }
+    return $syntax == "" ? "1=1" : "NOT ({$syntax})"; //FIXME
 }
 
 function get_msec() {
@@ -77,6 +97,11 @@ function td($val, $spec=true) {
 	return "<td>".($spec ? htmlspecialchars($val) : $val)."</td>";
 }
 
+function tr2($val1, $val2, $spec=true) {
+    return '<tr><td>'.($spec ? htmlspecialchars($val1) : $val1).'</td><td>'.($spec ? htmlspecialchars($val2) : $val2).'</td></tr>';
+}
+
+
 function get_player_table($page=1, $days=0, $sel_player="") {
 	global $config;
 	
@@ -92,16 +117,14 @@ function get_player_table($page=1, $days=0, $sel_player="") {
 		$sql = "
 			SELECT name, sum(frags) AS frags, sum(deaths) AS deaths, sum(teamkills) AS teamkills, sum(suicides) AS suicides, sum(win) AS wins, sum(timeplayed) AS timeplayed, count(*) AS games
 			FROM players, games
-			WHERE games.id = players.game_id AND games.datetime > ".(time() - $days*60*60*24).($sel_player!=""? " AND name LIKE '%".$sel_player."%'" : "")."
+			WHERE games.id = players.game_id AND games.datetime > ".(time() - $days*60*60*24).($sel_player!=""? " AND name LIKE '%".$sel_player."%'" : "")." AND ".exclude_names()."
 			GROUP BY name
 			ORDER BY sum(frags) DESC
-			LIMIT {$config['res_per_page']} OFFSET ({$config['res_per_page']} * ".($page - 1).")
-		";
-		
+			LIMIT {$config['res_per_page']} OFFSET ".($config['res_per_page']*($page - 1)); 
 	}
 	else {
-        if ($sel_player != "") $sel_player = "WHERE name LIKE '%{$sel_player}%'";
-		$sql = "SELECT * FROM playertotals {$sel_player} ORDER BY frags DESC LIMIT {$config['res_per_page']} OFFSET ".($config['res_per_page']*($page - 1)); 
+        if ($sel_player != "") $sel_player = " AND name LIKE '%{$sel_player}%'";
+		$sql = "SELECT * FROM playertotals WHERE ".exclude_names()." {$sel_player} ORDER BY frags DESC LIMIT {$config['res_per_page']} OFFSET ".($config['res_per_page']*($page - 1)); 
 	}
 	
 	$totals = read_array($sql);
@@ -129,7 +152,7 @@ function get_player_table($page=1, $days=0, $sel_player="") {
         if ($config['show_kpg']) $table .= td(round($player["frags"] / ($player["games"] ? $player["games"] : 1), 2));
         $table .= td($player["suicides"]);
         $table .= td($player["teamkills"]);
-        $table .= td(round($player["hits"] / ($player["shots"] ? $player["shots"] : 1) * 100, 2)."%");
+        $table .= td(round($player["damage"] / (($player["damage"]+$player["damagewasted"]) ? ($player["damage"]+$player["damagewasted"]) : 1) * 100, 2)."%");
         $table .= td($player["games"]);
         $table .= td(format_time($player["timeplayed"]));
         $table .= td($player["wins"]);
@@ -179,7 +202,7 @@ function get_gamelist_table($page=1, $days=0) {
 		$game = $games[$i];
 		
 		$table .= "<tr>";
-		$table .= td('<a href="?game_id='.$game["id"].'">'.($config['use_mysql']?$game["datetime"]:date("d-m-Y H:i:s", $game["datetime"])).'</a>', false);
+		$table .= td('<a href="?game_id='.$game["id"].'">'.(convert_timestamp($game["gametime"])).'</a>', false);
 		$table .= td($game["gamemode"]);
 		$table .= td($game["mapname"]);
 		$table .= td($game["duration"]." Minutes");
