@@ -5,6 +5,17 @@
 $is_included = true;
 $include_directory = dirname(__FILE__);
 
+if(!ini_get('safe_mode')) {
+    /*
+        well, a lot results need a lot space in the memory,
+        if showall is given, then all results need to be fetched, 
+        and if the memory limit is set below 256 MB, then it can 
+        happen (on very big databases) that a 
+        size of x bytes exhausted (tried to allocate y bytes)
+        error appears.
+    */
+    ini_set('memory_limit', '256M'); 
+}
 
 include $include_directory."/config.php";
 

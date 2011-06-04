@@ -154,7 +154,7 @@ function buttons() {
     flush();
 }
 
-function get_player_table($page=1, $days=0, $sel_mode=-1, $sel_player="") {
+function get_player_table($page=1, $days=0, $sel_mode=-1, $sel_player="", $showall=false) {
 	global $config;
 	
 	if ($page == NULL || $page == "" || $page == 0 || !is_numeric($page)) $page = 1;
@@ -182,12 +182,14 @@ function get_player_table($page=1, $days=0, $sel_mode=-1, $sel_player="") {
                 {$sel_mode}
 			GROUP BY name
 			ORDER BY sum(frags) DESC
-			LIMIT {$config['res_per_page']} OFFSET ".($config['res_per_page']*($page - 1)); 
+			".($showall ? "" : "LIMIT {$config['res_per_page']} OFFSET ".($config['res_per_page']*($page - 1))); 
             
 	}
 	else {
         if ($sel_player != "") $sel_player = " AND name LIKE '%{$sel_player}%'";
-		$sql = "SELECT * FROM playertotals WHERE ".exclude_names()." {$sel_player} ORDER BY frags DESC LIMIT {$config['res_per_page']} OFFSET ".($config['res_per_page']*($page - 1)); 
+		$sql = "
+            SELECT * FROM playertotals WHERE ".exclude_names()." {$sel_player} ORDER BY frags DESC 
+            ".($showall ? "" : "LIMIT {$config['res_per_page']} OFFSET ".($config['res_per_page']*($page - 1))); 
 	}
 	
 	$totals = read_array($sql);
@@ -238,7 +240,7 @@ function get_player_table($page=1, $days=0, $sel_mode=-1, $sel_player="") {
 	
     $count = $days > 0 ? array("count" => count(read_array($sql_count))) : read($sql_count);
 
-    return array($table, $count["count"]);
+    return array($table, $showall ? 0 : $count["count"]);
 }
 
 function get_gamelist_table($page=1, $days=0) {

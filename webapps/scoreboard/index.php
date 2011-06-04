@@ -28,7 +28,7 @@ buttons();
 if ($_GET["gamelist"] != "") $result = get_gamelist_table($_GET["page"], $_GET["days"]);
 if ($_GET["game_id"] != "") $result = get_game_table($_GET["game_id"]);
 
-if ($result == NULL) $result = get_player_table($_GET["page"], $_GET["days"], $_GET["mode"], $_GET["player"]);
+if ($result == NULL) $result = get_player_table($_GET["page"], $_GET["days"], $_GET["mode"], $_GET["player"], $_GET["showall"] != "");
 
 close_geoip();
 
@@ -40,7 +40,7 @@ else {
 <div align="center">
 <?php 
 echo $result[0];
-echo generate_pagelist($result[1], $_GET["page"]);
+if ($result[1]) echo generate_pagelist($result[1], $_GET["page"]);
 ?>
 </div>
 <?php
