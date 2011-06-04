@@ -163,11 +163,14 @@ function get_player_table($page=1, $days=0, $sel_mode=-1, $sel_player="", $showa
     
     if ($sel_player != "") $sel_player = escape_sql($sel_player);
     if ($sel_mode != "") $sel_mode = escape_sql($sel_mode);
+    
+    if ($sel_player != "") $sel_player = " AND name LIKE '%{$sel_player}%'";
+    else $sel_player = "";
 
     
 	if ($days > 0 || ($sel_mode != "" && $sel_mode != "all")) {
-        if ($sel_mode != "") $sel_mode = " AND gamemode = '{$sel_mode}'";
-        if ($days > 0) $days = "AND UNIX_TIMESTAMP(games.datetime) > ".(time() - $days*60*60*24);
+        if ($sel_mode != "") $mode_sql = " AND gamemode = '{$sel_mode}'";
+        if ($days > 0) $days_sql = "AND UNIX_TIMESTAMP(games.datetime) > ".(time() - $days*60*60*24);
         
 		$sql = "
 			SELECT 
@@ -176,17 +179,17 @@ function get_player_table($page=1, $days=0, $sel_mode=-1, $sel_player="", $showa
                 players, games
 			WHERE 
                 games.id = players.game_id 
-                {$days}
-                ".($sel_player!=""? " AND name LIKE '%".$sel_player."%'" : "")."
+                {$days_sql}
+                {$sel_player}
                 AND ".exclude_names()."
-                {$sel_mode}
+                {$mode_sql}
 			GROUP BY name
 			ORDER BY sum(frags) DESC
 			".($showall ? "" : "LIMIT {$config['res_per_page']} OFFSET ".($config['res_per_page']*($page - 1))); 
             
 	}
 	else {
-        if ($sel_player != "") $sel_player = " AND name LIKE '%{$sel_player}%'";
+        
 		$sql = "
             SELECT * FROM playertotals WHERE ".exclude_names()." {$sel_player} ORDER BY frags DESC 
             ".($showall ? "" : "LIMIT {$config['res_per_page']} OFFSET ".($config['res_per_page']*($page - 1))); 
@@ -227,19 +230,18 @@ function get_player_table($page=1, $days=0, $sel_mode=-1, $sel_player="", $showa
 	
     unset($totals);
 	
-    if ($days > 0) {
+    if ($days > 0 || ($sel_mode != "" && $sel_mode != "all")) {
         $sql_count = "
             SELECT count(players.name) FROM players, games
-            WHERE players.game_id = games.id AND games.datetime > ".(time() - $days*60*60*24).($player!=""? " AND name LIKE '%".$player."%'" : "")."
+            WHERE players.game_id = games.id {$days_sql} {$mode_sql} {$sel_player} AND ".exclude_names()."
             GROUP by players.name
         ";
     }
     else {
-        $sql_count = "SELECT count(*) AS count FROM playertotals {$sel_player}";
+        $sql_count = "SELECT count(*) AS count FROM playertotals WHERE ".exclude_names().($sel_player != "" ? $sel_player : "");
     }
 	
-    $count = $days > 0 ? array("count" => count(read_array($sql_count))) : read($sql_count);
-
+    $count = ($days != "" || ($sel_mode != "" && $sel_mode != "all") ? array("count" => count(read_array($sql_count))) : read($sql_count));
     return array($table, $showall ? 0 : $count["count"]);
 }
 
@@ -251,7 +253,7 @@ function get_gamelist_table($page=1, $days=0) {
 	$sel_games = $days > 0 ? "WHERE datetime > ".(time() - $days*60*60*24) : "";
 	$games = read_array("SELECT * FROM games {$sel_games} ORDER BY datetime DESC LIMIT {$config['res_per_page']} OFFSET ".($config['res_per_page']*($page - 1)));
 	
-	if (!$games) return false;
+	if (!$games[0]) return false;
 	
 	$table = "";
 	
@@ -381,9 +383,9 @@ function generate_pagelist($count, $page) {
 	if ($page == NULL || $page == "" || $page == 0 || !is_numeric($page)) $page = 1;
     
 	$pages = $count / $config['res_per_page'];
-    if ($count % $config['res_per_page'] != 0) $pages++;
+    if(strstr((string)($count / $config['res_per_page']), ".")) $pages++; 
     $pages = floor($pages);
-    
+
     if ($page > $pages) {
         echo '<script>window.location = "?page='.$pages.get_args(array("page")).'"</script>'; // stupid but works :P
         
