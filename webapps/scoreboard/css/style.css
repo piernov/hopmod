@@ -1,5 +1,17 @@
 a { 
 	font-family: Arial;
-	text-decoration:none;
+	text-decoration: none;
 	color: green;
+}
+
+input {
+    padding: 0;
+    margin: 0;
+    border: 1px solid #D9DDDE; 
+    font-size: 14px;
+    color: blue;
+}
+
+body {
+    background-color: white;
 }

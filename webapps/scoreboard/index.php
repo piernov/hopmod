@@ -2,6 +2,7 @@
 /*
  * (c) 2011 by Thomas Poechtrager
  */
+include "include.main.php";
 ?>
 <html>
 <head>
@@ -20,14 +21,14 @@
 <body>
 
 <?php
-include "include.main.php";
 
 start_benchmark();
+buttons();
 
 if ($_GET["gamelist"] != "") $result = get_gamelist_table($_GET["page"], $_GET["days"]);
 if ($_GET["game_id"] != "") $result = get_game_table($_GET["game_id"]);
 
-if ($result == NULL) $result = get_player_table($_GET["page"], $_GET["days"], $_GET["player"]);
+if ($result == NULL) $result = get_player_table($_GET["page"], $_GET["days"], $_GET["mode"], $_GET["player"]);
 
 close_geoip();
 
@@ -45,7 +46,7 @@ echo generate_pagelist($result[1], $_GET["page"]);
 <?php
 }//end if
 
-//end_benchmark();
+end_benchmark();
 
 ?>
 </body>

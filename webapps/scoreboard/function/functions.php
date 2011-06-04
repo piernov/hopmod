@@ -3,6 +3,7 @@
  * (c) 2011 by Thomas Poechtrager
  */
 if (!$is_included) exit();
+session_start();
 
 function escape_sql($val, $is_num=false) {
     if (!$is_num) {
@@ -51,7 +52,7 @@ function color($color, $val) {
     return '<font color="'.$color.'">'.$val.'</font>';
 }
 
-function get_args($block = array()) {
+function get_args($block = array(), $slashes = false) {
 	$args = "";
 	$arg_keys = array_keys($_GET);
 	for($i = 0; $i < count($arg_keys); $i++) {
@@ -59,6 +60,10 @@ function get_args($block = array()) {
 		if (in_array($key, $block)) continue;
 		$arg = $_GET[$key];
 		$args .= "&";
+        if ($slashes) { 
+            $key = addslashes($key);
+            $arg = addslashes($arg); 
+        }
 		$args .= htmlspecialchars($key.'='.$arg);
 	}
 	return $args;
@@ -80,16 +85,20 @@ function exclude_names() {
 }
 
 function get_msec() {
-	list($usec, $sec) = explode(" ", microtime());
-	$milliseconds = (((float)$usec/1000) + (float)$sec); 
-	return $milliseconds;
+    $timeparts = explode(" ",microtime());
+    $currenttime = bcadd(($timeparts[0]*1000),bcmul($timeparts[1],1000));
+	return $currenttime;
 }
 
-function start_benchmark() { global $start; $start = get_msec(); } 	
+function start_benchmark() { 
+    global $start_bench; 
+    $start_bench = get_msec();
+} 	
+
 function end_benchmark() { 
-	global $start; 
-	$diff = get_msec() - $start;
-	echo "Took ".$diff. " Seconds to generate this page";
+	global $start_bench; 
+	$diff = get_msec() - $start_bench;
+	echo '<br><div align="center"><font size="-1">generating took '.round($diff, 2).' ms</font></div>';
 } 	
 
 
@@ -101,26 +110,80 @@ function tr2($val1, $val2, $spec=true) {
     return '<tr><td>'.($spec ? htmlspecialchars($val1) : $val1).'</td><td>'.($spec ? htmlspecialchars($val2) : $val2).'</td></tr>';
 }
 
+function buttons() {
+    echo '
+        <div align="center">
+            <input type="button" id="daily" value="daily" onclick="window.location = \'?days=1&desc=daily'.get_args(array('days', 'page', 'desc'), true).'\';">
+            <input type="button" id="weekly" value="weekly" onclick="window.location = \'?days=7&desc=weekly'.get_args(array('days', 'page', 'desc'), true).'\';">
+            <input type="button" id="monthly" value="monthly" onclick="window.location = \'?days=30&desc=monthly'.get_args(array('days', 'page', 'desc'), true).'\';">
+            <input type="button" id="all" value="all" onclick="window.location = \'?desc=all'.get_args(array('days', 'page', 'desc'), true).'\';">
+            <br><br>
+    ';
+    
+    $gamemodes = read_array("SELECT DISTINCT gamemode FROM games");
+    
+    for ($i = 0; $i < count($gamemodes) - 1; $i++) {
+        $mode = $gamemodes[$i][0];
+        echo '<input type="button" id="'.$mode.'" value="'.$mode.'" onclick="window.location = \'?mode='.$mode.get_args(array('mode', 'page'), true).'\';">&nbsp;';
+    }
+    
+    echo '<input type="button" id="all_" value="all" onclick="window.location = \'?mode=all'.get_args(array('mode', 'page'), true).'\';"></div>';
+    
+    echo '
+    <script>
+        
+        var a_ = "'.addslashes($_GET["desc"]).'";
+        var b_ = "'.addslashes($_GET["mode"]).'";
+        
+        if (a_ == "") a_ = "all";
+        if (b_ == "") b_ = "all";
+       
+        if (b_ == "all") b_ = b_ + "_";
+       
+        var color = "green";
+       
+        btn_a = document.getElementById(a_);
+        btn_b = document.getElementById(b_);
+       
+        if (btn_a) btn_a.style.color = color;
+        if (btn_b) btn_b.style.color = color;     
+    
+    </script>
+    
+    ';
+    flush();
+}
 
-function get_player_table($page=1, $days=0, $sel_player="") {
+function get_player_table($page=1, $days=0, $sel_mode=-1, $sel_player="") {
 	global $config;
 	
 	if ($page == NULL || $page == "" || $page == 0 || !is_numeric($page)) $page = 1;
 	
 	$sql = "";
     
-    if ($sel_player != "") { 
-        $sel_player = escape_sql($sel_player);
-    }
-	
-	if ($days > 0) {
+    if ($sel_player != "") $sel_player = escape_sql($sel_player);
+    if ($sel_mode != "") $sel_mode = escape_sql($sel_mode);
+
+    
+	if ($days > 0 || ($sel_mode != "" && $sel_mode != "all")) {
+        if ($sel_mode != "") $sel_mode = " AND gamemode = '{$sel_mode}'";
+        if ($days > 0) $days = "AND UNIX_TIMESTAMP(games.datetime) > ".(time() - $days*60*60*24);
+        
 		$sql = "
-			SELECT name, sum(frags) AS frags, sum(deaths) AS deaths, sum(teamkills) AS teamkills, sum(suicides) AS suicides, sum(win) AS wins, sum(timeplayed) AS timeplayed, count(*) AS games
-			FROM players, games
-			WHERE games.id = players.game_id AND games.datetime > ".(time() - $days*60*60*24).($sel_player!=""? " AND name LIKE '%".$sel_player."%'" : "")." AND ".exclude_names()."
+			SELECT 
+                name, sum(frags) AS frags, sum(deaths) AS deaths, sum(teamkills) AS teamkills, sum(suicides) AS suicides, sum(win) AS wins, sum(timeplayed) AS timeplayed, count(*) AS games, ipaddr
+			FROM 
+                players, games
+			WHERE 
+                games.id = players.game_id 
+                {$days}
+                ".($sel_player!=""? " AND name LIKE '%".$sel_player."%'" : "")."
+                AND ".exclude_names()."
+                {$sel_mode}
 			GROUP BY name
 			ORDER BY sum(frags) DESC
 			LIMIT {$config['res_per_page']} OFFSET ".($config['res_per_page']*($page - 1)); 
+            
 	}
 	else {
         if ($sel_player != "") $sel_player = " AND name LIKE '%{$sel_player}%'";
@@ -128,8 +191,7 @@ function get_player_table($page=1, $days=0, $sel_player="") {
 	}
 	
 	$totals = read_array($sql);
-	
-	if (!$totals) return false;
+	if (!$totals[0]) return array("<br>no entries found", 0);
 	
 	$table = "";
 	
@@ -317,7 +379,7 @@ function generate_pagelist($count, $page) {
 	if ($page == NULL || $page == "" || $page == 0 || !is_numeric($page)) $page = 1;
     
 	$pages = $count / $config['res_per_page'];
-    if ($count % $config['res_per_page'] != 0) $pages++;//i know this way sucks..
+    if ($count % $config['res_per_page'] != 0) $pages++;
     $pages = floor($pages);
     
     if ($page > $pages) {
