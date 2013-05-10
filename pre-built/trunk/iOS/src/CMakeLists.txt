@@ -17,18 +17,16 @@ else(GeoIP_FOUND)
 endif(GeoIP_FOUND)
 
 option(WITH_OPENSSL "Enable SSL support" ON)
-if(NOT IOS)
 find_package(OpenSSL)
-endif(NOT IOS)
 
-if(NOT IOS AND WITH_OPENSSL AND OPENSSL_FOUND AND OPENSSL_INCLUDE_DIR)
+if(WITH_OPENSSL AND OPENSSL_FOUND AND OPENSSL_INCLUDE_DIR)
     set(LUA_NET_SSL_SOURCES
         hopmod/lua/modules/net/ssl_context.cpp
         hopmod/lua/modules/net/ssl_tcp_stream.cpp)
     add_definitions(-DKSSL_DEBUG)
-else(NOT IOS AND WITH_OPENSSL AND OPENSSL_FOUND AND OPENSSL_INCLUDE_DIR)
+else(WITH_OPENSSL AND OPENSSL_FOUND AND OPENSSL_INCLUDE_DIR)
     add_definitions(-DDISABLE_SSL -DWITHOUT_OPENSSL)
-endif(NOT IOS AND WITH_OPENSSL AND OPENSSL_FOUND AND OPENSSL_INCLUDE_DIR)
+endif(WITH_OPENSSL AND OPENSSL_FOUND AND OPENSSL_INCLUDE_DIR)
 
 include(CheckLibraryExists)
 check_library_exists(pthread pthread_self "" PTHREAD_EXISTS)
