@@ -1,0 +1,2 @@
+#define HOPMODSVNREV 2741
+

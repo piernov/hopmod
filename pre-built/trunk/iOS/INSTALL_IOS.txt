@@ -1,0 +1,28 @@
+INSTALLATION:
+
+Get openssh-server from cydia so you are able to ssh onto your device.
+Make sure to change the default password (which is alpine) for both,
+mobile AND root (install the server as mobile user).
+
+Once you have done this, install subversion from cydia.
+
+Then do a checkout of this repository.
+svn co http://hopmod.googlecode.com/svn/pre-built/trunk/iOS/
+
+Now you can run the server as usually:
+bin/server
+
+That's it.
+
+---------------------------------------------------------------------------
+
+Multi-arch binary, contains both armv6 and armv7, so should work on
+every iOS version starting from 4.0 (maybe works on 3.x too, - not tested).
+
+Hopmod Revision: see rev.h
+Compiler: clang version 3.4 (181587)
+
+You can get pre-compiled libraries, which are required for compiling
+hopmod for iOS from here:
+
+http://83.169.44.106/users/thomas/sauer/iOS/hopmod_libs.tar.bz2
