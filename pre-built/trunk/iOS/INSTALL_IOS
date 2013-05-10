@@ -7,7 +7,7 @@ mobile AND root (install the server as mobile user).
 Once you have done this, install subversion from cydia.
 
 Then do a checkout of this repository.
-svn co http://hopmod.googlecode.com/svn/pre-built/trunk/iOS/
+svn co https://hopmod.googlecode.com/svn/pre-built/trunk/iOS/
 
 Now you can run the server as usually:
 bin/server
