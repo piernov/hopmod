@@ -1,6 +1,8 @@
 INSTALLATION:
 
-Get openssh-server from cydia so you are able to ssh onto your device.
+Get openssh-server and coreutils from cydia so you are able to
+ssh onto your device.
+
 Make sure to change the default password (which is alpine) for both,
 mobile AND root (install the server as mobile user).
 
