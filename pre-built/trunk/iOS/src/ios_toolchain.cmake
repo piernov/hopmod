@@ -9,8 +9,8 @@ set(CMAKE_SYSTEM_PROCESSOR "arm")
 set(LIBROOT    "/home/thomas/ios/libs")
 set(CC         "ios-clang")
 set(CXX        "ios-clang++")
-set(AR         "/usr/bin/arm-apple-darwin11-ar")
-set(RANLIB     "/usr/bin/arm-apple-darwin11-ranlib")
+set(AR         "arm-apple-darwin11-ar")
+set(RANLIB     "arm-apple-darwin11-ranlib")
 
 set(ARCH       "-arch armv7 -arch armv6")
 
