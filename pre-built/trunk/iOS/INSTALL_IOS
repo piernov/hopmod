@@ -1,3 +1,7 @@
+SUPPORTED DEVICES:
+All devices with one of these cpu types: 
+ armv6, armv7 or armv7s with iOS 4+
+
 INSTALLATION:
 
 Get openssh-server and coreutils from cydia so you are able to
@@ -18,11 +22,7 @@ That's it.
 
 ---------------------------------------------------------------------------
 
-Multi-arch binary, contains both armv6 and armv7, so should work on
-every iOS version starting from 4.0 (maybe works on 3.x too, - not tested).
-
 Hopmod Revision: see rev.h
-Compiler: clang version 3.4 (181587)
 
 You can get pre-compiled libraries, which are required for compiling
 hopmod for iOS from here:
