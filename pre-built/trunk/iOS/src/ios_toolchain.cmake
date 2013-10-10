@@ -6,7 +6,7 @@ set(CMAKE_CROSSCOMPILING   TRUE)
 set(CMAKE_SYSTEM_NAME      "Darwin")
 set(CMAKE_SYSTEM_PROCESSOR "arm")
 
-set(LIBROOT    "/home/thomas/ios/libs")
+set(LIBROOT    "/home/thomas/.build/ios")
 set(CC         "ios-clang")
 set(CXX        "ios-clang++")
 set(AR         "arm-apple-darwin11-ar")
